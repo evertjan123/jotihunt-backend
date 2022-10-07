@@ -1,0 +1,10 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - build
+      - "--tag=gcr.io/jotihunt-364618/quickstart-image"
+      - "--file=."
+      - .
+---
+images:
+  - "gcr.io/jotihunt-364618/quickstart-image"
