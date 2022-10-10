@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Clubhouse;
 use App\Models\Area;
 use App\Models\Article;
-use App\Models\Sighting;
+use App\Models\sighting;
 use App\Models\Hunters;
 
 
@@ -97,18 +97,18 @@ Route::post('/hunter/update/{id}', function (Request $request) {
  * SIGHTINGS
  */
 Route::get('/sightings', function (Request $request) {
-    return ['data' => Sighting::with('area')->with('hunters')->get()];
+    return ['data' => sighting::with('area')->with('hunters')->get()];
 });
 
 Route::get('/sightings/{id}', function (Request $request) {
-    return ['data' => Sighting::with('area')->with('hunters')->where('area_id',$request->route('id'))->get()];
+    return ['data' => sighting::with('area')->with('hunters')->where('area_id',$request->route('id'))->get()];
 });
 
 Route::post('/sighting', function (Request $request) {
     $body = json_decode($request->getContent());
     try { 
         
-        $sighting = Sighting::create([
+        $sighting = sighting::create([
             'description' => $body->description ?? null,
             'lat' => $body->lat,
             'long' => $body->long,
