@@ -16,6 +16,7 @@ class Clubhouse extends Model
         'housenumber',
         'housenumber_addition',
         'postcode',
+        'city',
         'lat',
         'long',
         'photo_assignment_points'

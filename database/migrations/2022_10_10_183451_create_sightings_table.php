@@ -13,19 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('clubhouses', function (Blueprint $table) {
+        Schema::create('sightings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('accomodation');
-            $table->string('street');
-            $table->integer('housenumber');
-            $table->string('housenumber_addition')->nullable();
-            $table->string('postcode');
-            $table->string('city');
+            $table->string('description')->nullable();
             $table->string('lat');
             $table->string('long');
-            $table->integer('photo_assignment_points')->nullable();
+            $table->string('optional_name')->nullable();
+            $table->unsignedBigInteger('hunter_id')->nullable();
+            $table->unsignedBigInteger('area_id');
             $table->timestamps();
+
+            $table->foreign('hunter_id')->references('id')->on('hunters')->onDelete('cascade');;
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');;
         });
     }
 
@@ -36,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clubhouses');
+        Schema::dropIfExists('sightings');
     }
 };

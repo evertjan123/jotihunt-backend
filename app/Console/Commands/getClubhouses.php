@@ -42,6 +42,7 @@ class getClubhouses extends Command
                                 'housenumber' => $house->housenumber,
                                 'housenumber_addition' => $house->housenumber_addition,
                                 'postcode' => $house->postcode,
+                                'city' => $house->city,
                                 'lat' => $house->lat,
                                 'long' => $house->long,
                                 'photo_assignment_points' => $house->photo_assignment_points]);
