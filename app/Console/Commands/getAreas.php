@@ -36,7 +36,7 @@ class getAreas extends Command
         $this->info('retrieved ' . count($areas) . " areas");
 
         array_map(function ($area) {
-            Area::updateOrCreate(['name' => $area->name,
+            Area::updateOrCreate(["name" => $area->name], ['name' => $area->name,
                                 'status' => $area->status,
                                ]);
         }, $areas);

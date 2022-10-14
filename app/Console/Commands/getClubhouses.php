@@ -34,7 +34,7 @@ class getClubhouses extends Command
 
         $clubhouses = json_decode($response->body())->data;
         $this->info('retrieved ' . count($clubhouses) . " clubhouses");
-
+        Clubhouse::truncate();
         array_map(function ($house) {
             Clubhouse::updateOrCreate(['name' => $house->name,
                                 'accomodation' => $house->accomodation,
@@ -45,7 +45,8 @@ class getClubhouses extends Command
                                 'city' => $house->city,
                                 'lat' => $house->lat,
                                 'long' => $house->long,
-                                'photo_assignment_points' => $house->photo_assignment_points]);
+                                'photo_assignment_points' => $house->photo_assignment_points,
+                                'area' => $house->area]);
         }, $clubhouses);
 
         $this->info('saved clubhouses');

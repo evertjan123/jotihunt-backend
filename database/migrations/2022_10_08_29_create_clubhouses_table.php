@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('lat');
             $table->string('long');
             $table->integer('photo_assignment_points')->nullable();
+            $table->string('area');
             $table->timestamps();
         });
     }

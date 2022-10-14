@@ -104,6 +104,10 @@ Route::get('/sightings/{id}', function (Request $request) {
     return ['data' => sighting::with('area')->with('hunters')->where('area_id',$request->route('id'))->get()];
 });
 
+Route::get('/sightings/delete/{id}', function (Request $request) {
+    return ['data' => sighting::where('id',$request->route('id'))->delete()];
+});
+
 Route::post('/sighting', function (Request $request) {
     $body = json_decode($request->getContent());
     try { 
@@ -124,4 +128,20 @@ Route::post('/sighting', function (Request $request) {
     } catch(Error $e) {
         return ['success' =>false, 'error' => $e];
     }
+});
+
+/**
+ * CRON JOBS
+ */
+
+Route::get('/cron/clubhouses', function (Request $request) {
+    return Artisan::call('get:clubHouses');
+});
+
+Route::get('/cron/articles', function (Request $request) {
+    return Artisan::call('get:Articles');
+});
+
+Route::get('/cron/areas', function (Request $request) {
+    return Artisan::call('get:Areas');
 });
