@@ -35,9 +35,8 @@ class getArticles extends Command
 
         $articles = json_decode($response->body())->data;
         $this->info('retrieved ' . count($articles) . " clubhouses");
-        
         array_map(function ($article) {
-            Article::updateOrCreate(['title' => $article->title,
+            Article::updateOrCreate(['id' => $article->id],['title' => $article->title,
                                 'type' => $article->type,
                                 'publish_at' => $article->publish_at,
                                 'message' => json_encode($article->message),

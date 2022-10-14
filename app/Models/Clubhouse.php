@@ -19,7 +19,8 @@ class Clubhouse extends Model
         'city',
         'lat',
         'long',
-        'photo_assignment_points'
+        'photo_assignment_points',
+        'area'
     ];
 
     protected $table = 'clubhouses';
