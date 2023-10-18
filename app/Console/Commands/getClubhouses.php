@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 use App\Models\Clubhouse;
 
 class getClubhouses extends Command
@@ -30,9 +30,12 @@ class getClubhouses extends Command
     public function handle()
     {
         $this->info('retrieving clubhouses');
-        $response = Http::get('https://jotihunt.nl/api/2.0/subscriptions');
+        $client = new Client([
+            'base_uri' => 'https://jotihunt.nl/api/2.0/'
+        ]);
 
-        $clubhouses = json_decode($response->body())->data;
+        $response = $client->request('GET', 'subscriptions', ['verify' => false]);
+        $clubhouses = json_decode($response->getBody())->data;
         $this->info('retrieved ' . count($clubhouses) . " clubhouses");
         Clubhouse::truncate();
         array_map(function ($house) {
@@ -46,7 +49,7 @@ class getClubhouses extends Command
                                 'lat' => $house->lat,
                                 'long' => $house->long,
                                 'photo_assignment_points' => $house->photo_assignment_points,
-                                'area' => $house->area]);
+                                'area' => $house->area ?? ""]);
         }, $clubhouses);
 
         $this->info('saved clubhouses');

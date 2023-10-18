@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
 use App\Models\Area;
 
 class getAreas extends Command
@@ -30,9 +30,14 @@ class getAreas extends Command
     public function handle()
     {
         $this->info('retrieving areas');
-        $response = Http::get('https://jotihunt.nl/api/2.0/areas');
 
-        $areas = json_decode($response->body())->data;
+        $client = new Client([
+            'base_uri' => 'https://jotihunt.nl/api/2.0/'
+        ]);
+
+        $response = $client->request('GET', 'areas', ['verify' => false]);
+
+        $areas = json_decode($response->getBody())->data;
         $this->info('retrieved ' . count($areas) . " areas");
 
         array_map(function ($area) {
