@@ -61,7 +61,7 @@ class HuntsController extends Controller
                 return response()->json(['success' =>true, 'data' => $hunt]);
             }
         } catch (\Exception $e) {
-            LOG::info($e->getMessage());
+            return response()->json(['success' =>false , 'data' => $e->getMessage()]);
         }
     }
 }
