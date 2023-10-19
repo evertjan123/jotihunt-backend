@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hunter;
 use App\Models\Hunts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HuntsController extends Controller
 {
