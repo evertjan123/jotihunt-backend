@@ -12,14 +12,14 @@ class hunterController extends Controller
 {
 
     public function get(Request $request) {
-        $hunters = Hunters::where('is_hunting', true)->with('area')->get()->toArray();
-    
+        $hunters = Hunters::where('is_hunting', true)->sortByDesc('location_send_at')->with('area')->get()->toArray();
+
         return response()->json(['data' => $hunters]);
     }
 
     public function updateLocation(Request $request, $id) {
         $lat = $request->input('lat');
-        $long = $request->input('long'); 
+        $long = $request->input('long');
 
         $hunter = Hunters::find($id);
         if (!$lat || !$long || !$hunter) {
@@ -36,11 +36,11 @@ class hunterController extends Controller
 
     public function updateStatus(Request $request, $id) {
         $isHunting = $request->input('is_hunting');
-        $isLive = $request->input('is_live'); 
-        $areaId = $request->input('area_id'); 
+        $isLive = $request->input('is_live');
+        $areaId = $request->input('area_id');
 
         $hunter = Hunters::find($id);
-        
+
         if (!$hunter) {
             return response()->json(['error' => 'no user found'], 400);
         } else {
@@ -56,14 +56,14 @@ class hunterController extends Controller
 
     public function delete($id) {
         $hunter = Hunters::find($id);
-        
+
         if (!$hunter) {
             return response()->json(['error' => 'no user found'], 400);
         } else {
             $hunter->delete();
 
             return response()->json(["removed" => true] , 200);
-        } 
+        }
     }
 
 
@@ -80,7 +80,7 @@ class hunterController extends Controller
         } else {
             $token = $hunter->createToken('Auth')->accessToken;
             return response()->json(['data' => $hunter, 'token' => $token]);
-        } 
+        }
     }
 
     public function create(Request $request) {
@@ -89,7 +89,7 @@ class hunterController extends Controller
         return response()->json(['error' => 'license plate already registered'], 400);
     }
 
-    try { 
+    try {
         $Hunter = Hunters::create([
             'driver' => $request->input('driver'),
             'code' => $request->input('code'),
@@ -101,7 +101,7 @@ class hunterController extends Controller
             'is_live' =>  $request->input('is_live'),
             'area_id' =>$request->input('area_id')
         ]);
-        
+
         $Hunter->save();
 
         $token = $Hunter->createToken('Auth')->accessToken;
@@ -110,6 +110,6 @@ class hunterController extends Controller
 
     } catch(Error $e) {
         return response()->json(['success' =>false, 'error' => $e], 401);
-    } 
+    }
     }
 }
