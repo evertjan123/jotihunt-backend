@@ -16,7 +16,7 @@ class HuntsController extends Controller
 
     public function download(Request $request, $id) {
         $secret = $request->query('secret');
-        $path = Hunts::find($id)->path_to_file;
+        $path = Hunts::find($id)->path_to_photo;
         if($secret !== 'HeerlijkeHathi') {
             return response()->json(['nothing here' => true], 404);
         }
