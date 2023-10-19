@@ -72,6 +72,8 @@ Route::post('/sighting', [sightingController::class, 'post'])->middleware('auth:
  */
 Route::get('/hunts', [HuntsController::class, 'get']);
 
+Route::get('/hunts/download/{secret}/{pathname}', [HuntsController::class, 'download']);
+
 Route::post('/hunts/{id}', [HuntsController::class, 'post'])->middleware('auth:api');
 
 

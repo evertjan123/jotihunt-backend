@@ -14,6 +14,23 @@ class HuntsController extends Controller
         return response()->json(['data' => $hunters]);
     }
 
+    public function download($path, $secret) {
+
+        if($secret !== 'HeerlijkeHathi') {
+            return response()->json(['nothing here' => true], 404);
+        }
+
+        $filename = str_replace('images/', '', $path);
+
+        $path = storage_path('app/images/' . $filename); // Adjust the path as needed
+
+        if (!Storage::exists('images/' . $filename)) {
+            abort(404);
+        }
+
+        return response()->download($path, $filename);
+    }
+
     public function post(Request $request, $id) {
         $code = $request->input('code');
         $time = $request->input('time');
