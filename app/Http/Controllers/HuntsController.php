@@ -19,7 +19,7 @@ class HuntsController extends Controller
         $time = $request->input('time');
         $area_id = $request->input('area_id');
 
-        if (!$area_id || !$code || $time || !$id) {
+        if (!$area_id || !$code || !$time || !$id) {
             return response()->json(['error' => 'no code, area or user found'], 400);
         } else {
             $path = null;
