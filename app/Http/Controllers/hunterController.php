@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Hunter;
 use Illuminate\Support\Carbon;
 use App\Models\Area;
+use Illuminate\Support\Facades\Log;
 
 class hunterController extends Controller
 {
@@ -18,19 +19,23 @@ class hunterController extends Controller
     }
 
     public function updateLocation(Request $request, $id) {
-        $lat = $request->input('lat');
-        $long = $request->input('long');
+        try {
+            $lat = $request->input('lat');
+            $long = $request->input('long');
 
-        $hunter = Hunter::find($id);
-        if (!$lat || !$long || !$hunter) {
-            return response()->json(['error' => 'no lat, long or user found'], 400);
-        } else {
-            $hunter->lat = $lat;
-            $hunter->long = $long;
-            $hunter->location_send_at = Carbon::now();
-            $hunter->save();
+            $hunter = Hunter::find($id);
+            if (!$lat || !$long || !$hunter) {
+                return response()->json(['error' => 'no lat, long or user found'], 400);
+            } else {
+                $hunter->lat = $lat;
+                $hunter->long = $long;
+                $hunter->location_send_at = Carbon::now();
+                $hunter->save();
 
-            return response()->json(['data' => $hunter]);
+                return response()->json(['data' => $hunter]);
+            }
+        } catch (\Exception $e) {
+            LOG::info($e->getMessage());
         }
     }
 
