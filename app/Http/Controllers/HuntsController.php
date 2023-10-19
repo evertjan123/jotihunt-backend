@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class HuntsController extends Controller
 {
     public function get(Request $request) {
-        $hunters = Hunts::with( 'hunters')->orderBy('created_at', 'desc')->get()->toArray();
+        $hunters = Hunts::with( 'hunters')->with('area')->orderBy('created_at', 'desc')->get()->toArray();
 
         return response()->json(['data' => $hunters]);
     }
@@ -18,14 +18,13 @@ class HuntsController extends Controller
         $code = $request->input('code');
         $area_id = $request->input('area_id');
 
-        $hunter = Hunters::find($id);
-        if (!$area_id || !$code || !$hunter) {
+        if (!$area_id || !$code || !$id) {
             return response()->json(['error' => 'no code, area or user found'], 400);
         } else {
             $hunt = Hunts::create([
                 'code' => $code,
                 'area_id' => $area_id,
-                'hunter_id' => $hunter->id,
+                'hunter_id' => $id,
             ]);;
 
             $hunt->save();
