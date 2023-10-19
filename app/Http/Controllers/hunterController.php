@@ -12,9 +12,9 @@ class hunterController extends Controller
 {
 
     public function get(Request $request) {
-        $hunters = Hunters::with('area')->get()->sortByDesc('location_send_at');
+        $hunters = Hunters::with('area')->get()->toArray();
 
-        return response()->json(['data' => $hunters->toArray()]);
+        return response()->json(['data' => $hunters]);
     }
 
     public function updateLocation(Request $request, $id) {
