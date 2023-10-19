@@ -11,6 +11,8 @@ class Hunts extends Model
 
     protected $fillable = [
         'code',
+        'time',
+        'path_to_photo',
         'hunter_id',
         'area_id'
     ];
