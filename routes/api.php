@@ -72,7 +72,7 @@ Route::post('/sighting', [sightingController::class, 'post'])->middleware('auth:
  */
 Route::get('/hunts', [HuntsController::class, 'get']);
 
-Route::post('/hunts', [HuntsController::class, 'post'])->middleware('auth:api');
+Route::post('/hunts/{id}', [HuntsController::class, 'post'])->middleware('auth:api');
 
 
 
