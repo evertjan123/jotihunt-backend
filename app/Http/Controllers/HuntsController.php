@@ -14,8 +14,9 @@ class HuntsController extends Controller
         return response()->json(['data' => $hunters]);
     }
 
-    public function download($path, $secret) {
-
+    public function download(Request $request) {
+        $secret = $request->query('secret');
+        $path = $request->query('path');
         if($secret !== 'HeerlijkeHathi') {
             return response()->json(['nothing here' => true], 404);
         }
