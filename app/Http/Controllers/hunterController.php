@@ -12,7 +12,7 @@ class hunterController extends Controller
 {
 
     public function get(Request $request) {
-        $hunters = Hunters::with('area')->get()->toArray();
+        $hunters = Hunters::with('area')->orderBy('location_send_at', 'desc')->get()->toArray();
 
         return response()->json(['data' => $hunters]);
     }
