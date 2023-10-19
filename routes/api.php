@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HuntsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Clubhouse;
@@ -65,6 +66,15 @@ Route::get('/sightings/{id}', [sightingController::class, 'getById']);
 Route::delete('/sightings/{id}', [sightingController::class, 'delete']);
 
 Route::post('/sighting', [sightingController::class, 'post'])->middleware('auth:api');
+
+/**
+ * HUNTS
+ */
+Route::get('/hunts', [HuntsController::class, 'get']);
+
+Route::post('/hunts', [HuntsController::class, 'post'])->middleware('auth:api');
+
+
 
 /**
  * CRON JOBS
