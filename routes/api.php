@@ -7,7 +7,7 @@ use App\Models\Clubhouse;
 use App\Models\Area;
 use App\Models\Article;
 use App\Models\sighting;
-use App\Models\Hunters;
+use App\Models\Hunter;
 
 use App\Http\Controllers\sightingController;
 use App\Http\Controllers\hunterController;

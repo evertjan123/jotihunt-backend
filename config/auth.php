@@ -66,7 +66,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Hunters::class,
+            'model' => App\Models\Hunter::class,
         ],
 
         // 'users' => [
@@ -98,7 +98,7 @@ return [
             'throttle' => 60,
         ],
     ],
-     
+
 
     /*
     |--------------------------------------------------------------------------

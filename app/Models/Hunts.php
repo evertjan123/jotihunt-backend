@@ -21,7 +21,7 @@ class Hunts extends Model
         return $this->belongsTo(Area::class);
     }
 
-    public function hunters(){
-        return $this->belongsTo(Hunters::class);
+    public function hunter(){
+        return $this->belongsTo(Hunter::class);
     }
 }

@@ -8,7 +8,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Area;
 
-class Hunters extends Authenticatable
+class Hunter extends Authenticatable
 {
     use HasFactory;
     use HasApiTokens;

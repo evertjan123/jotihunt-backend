@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Hunters;
+use App\Models\Hunter;
 use Illuminate\Support\Carbon;
 use App\Models\Area;
 
@@ -12,7 +12,7 @@ class hunterController extends Controller
 {
 
     public function get(Request $request) {
-        $hunters = Hunters::with('area')->orderBy('location_send_at', 'desc')->get()->toArray();
+        $hunters = Hunter::with('area')->orderBy('location_send_at', 'desc')->get()->toArray();
 
         return response()->json(['data' => $hunters]);
     }
@@ -21,7 +21,7 @@ class hunterController extends Controller
         $lat = $request->input('lat');
         $long = $request->input('long');
 
-        $hunter = Hunters::find($id);
+        $hunter = Hunter::find($id);
         if (!$lat || !$long || !$hunter) {
             return response()->json(['error' => 'no lat, long or user found'], 400);
         } else {
@@ -39,7 +39,7 @@ class hunterController extends Controller
         $isLive = $request->input('is_live');
         $areaId = $request->input('area_id');
 
-        $hunter = Hunters::find($id);
+        $hunter = Hunter::find($id);
 
         if (!$hunter) {
             return response()->json(['error' => 'no user found'], 400);
@@ -55,7 +55,7 @@ class hunterController extends Controller
     }
 
     public function delete($id) {
-        $hunter = Hunters::find($id);
+        $hunter = Hunter::find($id);
 
         if (!$hunter) {
             return response()->json(['error' => 'no user found'], 400);
@@ -71,7 +71,7 @@ class hunterController extends Controller
         $code = $request->input('code');
         $license_plate = $request->input('license_plate');
 
-        $hunter = Hunters::where('license_plate', $request->input('license_plate'))
+        $hunter = Hunter::where('license_plate', $request->input('license_plate'))
         ->where('code', $code)
         ->first();
 
@@ -85,12 +85,12 @@ class hunterController extends Controller
 
     public function create(Request $request) {
 
-    if(Hunters::where('license_plate', $request->input('license_plate'))->first()){
+    if(Hunter::where('license_plate', $request->input('license_plate'))->first()){
         return response()->json(['error' => 'license plate already registered'], 400);
     }
 
     try {
-        $Hunter = Hunters::create([
+        $Hunter = Hunter::create([
             'driver' => $request->input('driver'),
             'code' => $request->input('code'),
             'license_plate' => $request->input('license_plate'),

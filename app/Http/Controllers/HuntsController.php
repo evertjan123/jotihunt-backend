@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hunters;
+use App\Models\Hunter;
 use App\Models\Hunts;
 use Illuminate\Http\Request;
 
 class HuntsController extends Controller
 {
     public function get(Request $request) {
-        $hunters = Hunts::with( 'hunters')->with('area')->orderBy('created_at', 'desc')->get()->toArray();
+        $hunters = Hunts::with( 'hunter')->with('area')->orderBy('created_at', 'desc')->get()->toArray();
 
         return response()->json(['data' => $hunters]);
     }
