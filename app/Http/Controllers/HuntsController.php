@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class HuntsController extends Controller
 {
     public function get(Request $request) {
-        $hunters = Hunts::with(['area', 'hunters'])->orderBy('created_at', 'desc')->get()->toArray();
+        $hunters = Hunts::with( 'hunters')->orderBy('created_at', 'desc')->get()->toArray();
 
         return response()->json(['data' => $hunters]);
     }
