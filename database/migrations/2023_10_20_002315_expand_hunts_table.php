@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('hunts', function (Blueprint $table) {
-            $table->id();
             $table->string('time');
             $table->string('path_to_photo')->nullable();
         });
